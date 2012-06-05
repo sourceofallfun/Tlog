@@ -12,7 +12,7 @@ package tlog;
 public class Tlog extends javax.swing.JFrame {
 
     /**
-     * Creates new form Tlog 
+     * Creates new form Tlog
      */
     public Tlog() {
         initComponents();
