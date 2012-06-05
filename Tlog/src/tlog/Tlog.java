@@ -372,6 +372,7 @@ public class Tlog extends javax.swing.JFrame {
         
         // MSK: Hier beginnt mein main:
         try {
+            
             File f = new File("/Users/michaelsalbeck/Documents/workspace/tlog_data.txt").getCanonicalFile();
             System.out.println( f );
         }
