@@ -1,5 +1,6 @@
 package tlog;
 
+import java.io.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -68,6 +69,11 @@ public class Tlog extends javax.swing.JFrame {
         datafileTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setText("Zeit");
 
@@ -323,13 +329,22 @@ public class Tlog extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit( 0 );
     }//GEN-LAST:event_exitButtonActionPerformed
-
+    
     private void datafileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafileTextFieldActionPerformed
         // TODO add your handling code here:
-        // MSK: Nur Test, noch richtige Umsetzung nötig! ToDo!
-        
     }//GEN-LAST:event_datafileTextFieldActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        String datafile = datafileTextField.getText();
+        System.out.println( datafile );
+        File datafileText = new File(datafile);
+        if ( datafileText.isFile() )
+            { System.out.println( "Hey, es ist da!" ); }
+        else 
+        { System.out.println( "Oh, wo ist es den?"); }
+    }//GEN-LAST:event_formWindowActivated
+   
     /**
      * @param args the command line arguments
      */
@@ -372,10 +387,6 @@ public class Tlog extends javax.swing.JFrame {
         });
         
         // MSK: Hier beginnt mein main:
-    }
-    
-    public void testAusgabe() {
-            System.out.println(datafileTextField.getText());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField breakTextField;
