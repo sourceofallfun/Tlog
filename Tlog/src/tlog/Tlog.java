@@ -326,7 +326,8 @@ public class Tlog extends javax.swing.JFrame {
 
     private void datafileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafileTextFieldActionPerformed
         // TODO add your handling code here:
-        // MSK: Nur Test, noch richtige Umsetzung nötig! ToDo!   
+        // MSK: Nur Test, noch richtige Umsetzung nötig! ToDo!
+        
     }//GEN-LAST:event_datafileTextFieldActionPerformed
 
     /**
@@ -371,12 +372,10 @@ public class Tlog extends javax.swing.JFrame {
         });
         
         // MSK: Hier beginnt mein main:
-        try {
-            
-            File f = new File("/Users/michaelsalbeck/Documents/workspace/tlog_data.txt").getCanonicalFile();
-            System.out.println( f );
-        }
-        catch ( IOException e ) { e.printStackTrace(); }
+    }
+    
+    public void testAusgabe() {
+            System.out.println(datafileTextField.getText());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField breakTextField;
