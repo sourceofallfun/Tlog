@@ -341,45 +341,36 @@ public class Tlog extends javax.swing.JFrame {
     }//GEN-LAST:event_datafileTextFieldActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        //MSA: Calendar oriented 
-        GregorianCalendar cal = new GregorianCalendar();
-	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-	String calsdf = sdf.format(new Date());
-	System.out.println( calsdf );
-        
-        //Read of the tlog_data.txt and check the date
+        //MSA: Read the tlog_data.txt
         String datafile = datafileTextField.getText();
         System.out.println( datafile );
         File datafileText = new File( datafile );
-        if ( datafileText.isFile() )
-            { System.out.println( "Hey, es ist da!" ); }
-        else 
-            { System.out.println( "Oh, wo ist es denn?"); }
-        
-        try { 
+        if ( datafileText.isFile() ) { System.out.println( "Hey, es ist da!" ); }
+        else { System.out.println( "Oh, wo ist es denn?"); }
+	//MSA: Open the datafile and read the date in the first line
+        try {
             RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "rw" );
             datafileOpen.seek(0);
-            int dayInDatafile = datafileOpen.read();
-            datafileOpen.seek(2);
-            int monthInDatafile = datafileOpen.read();
-            System.out.println( (monthInDatafile-48) );
-            datafileOpen.seek(4);
-            int yearInDatafile = datafileOpen.read();
-            if ( calday == (dayInDatafile-48) )
-                if ( (calmonth+1) == (monthInDatafile-48) )
-                    if ( calyear == monthInDatafile )
-                        System.out.println("Jou!");
-                    else System.out.println("Nope (Year)!");
-                else System.out.println("Nope (Month)!");
-            else System.out.println("Nope (Day)!"); 
-            
-            datafileOpen.close();
+            String dayInDatafile = datafileOpen.readLine();
+	    datafileOpen.close();
+	    //MSA: get the today's date
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+	    String sdfdate = sdf.format(new Date());
+	    //MSA: Is the date from the datafile and the today's date equal?
+	    //     If not, then write the today's day in a new, first line.
+	    if ( ( dayInDatafile.trim()).equals( sdfdate ) ) {
+	    	System.out.println( "Date exists!" );
+	    } else { insertNewDatablock( datafile ); }
         } catch ( FileNotFoundException ex ) { ex.printStackTrace();     
         } catch ( IOException ex ) { ex.printStackTrace();
         }
     }//GEN-LAST:event_formWindowActivated
-   
+   public void insertNewDatablock( String datafile ) {
+       //MSA: This method will create a new data block at the beginning
+       //     of the data file
+       System.out.println( "insertNewDatablock!");
+       
+   }
     /**
      * @param args the command line arguments
      */
