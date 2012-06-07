@@ -3,6 +3,11 @@ package tlog;
 import java.io.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.GregorianCalendar;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -336,13 +341,28 @@ public class Tlog extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        //MSA: Calendar oriented 
+        GregorianCalendar cal = new GregorianCalendar();
+        int calday = cal.get(Calendar.DAY_OF_MONTH);
+        int calmonth = cal.get(Calendar.MONTH);
+        int calyear = cal.get(Calendar.YEAR);
+        System.out.println( "Datum: " + calday + "." + calmonth + "." + calyear );
+        
+        //MSA: File oriented
         String datafile = datafileTextField.getText();
         System.out.println( datafile );
-        File datafileText = new File(datafile);
+        File datafileText = new File( datafile );
         if ( datafileText.isFile() )
             { System.out.println( "Hey, es ist da!" ); }
         else 
-        { System.out.println( "Oh, wo ist es den?"); }
+            { System.out.println( "Oh, wo ist es denn?"); }
+        
+        try { 
+            RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "rw" );
+            datafileOpen.seek(0);
+        } catch ( FileNotFoundException ex ) { ex.printStackTrace();     
+        } catch ( IOException ex ) { ex.printStackTrace();
+        }
     }//GEN-LAST:event_formWindowActivated
    
     /**
