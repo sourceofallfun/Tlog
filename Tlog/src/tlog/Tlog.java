@@ -4,6 +4,7 @@ import java.io.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.*;
 import java.util.logging.Level;
@@ -343,12 +344,11 @@ public class Tlog extends javax.swing.JFrame {
         // TODO add your handling code here:
         //MSA: Calendar oriented 
         GregorianCalendar cal = new GregorianCalendar();
-        int calday = cal.get(Calendar.DAY_OF_MONTH);
-        int calmonth = cal.get(Calendar.MONTH);
-        int calyear = cal.get(Calendar.YEAR);
-        System.out.println( "Datum: " + calday + "." + calmonth + "." + calyear );
+	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+	String calsdf = sdf.format(new Date());
+	System.out.println( calsdf );
         
-        //MSA: File oriented
+        //Read of the tlog_data.txt and check the date
         String datafile = datafileTextField.getText();
         System.out.println( datafile );
         File datafileText = new File( datafile );
@@ -360,6 +360,21 @@ public class Tlog extends javax.swing.JFrame {
         try { 
             RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "rw" );
             datafileOpen.seek(0);
+            int dayInDatafile = datafileOpen.read();
+            datafileOpen.seek(2);
+            int monthInDatafile = datafileOpen.read();
+            System.out.println( (monthInDatafile-48) );
+            datafileOpen.seek(4);
+            int yearInDatafile = datafileOpen.read();
+            if ( calday == (dayInDatafile-48) )
+                if ( (calmonth+1) == (monthInDatafile-48) )
+                    if ( calyear == monthInDatafile )
+                        System.out.println("Jou!");
+                    else System.out.println("Nope (Year)!");
+                else System.out.println("Nope (Month)!");
+            else System.out.println("Nope (Day)!"); 
+            
+            datafileOpen.close();
         } catch ( FileNotFoundException ex ) { ex.printStackTrace();     
         } catch ( IOException ex ) { ex.printStackTrace();
         }
