@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+//import java.util.GregorianCalendar;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class Tlog extends javax.swing.JFrame {
      */
     public Tlog() {
         initComponents();
-        datafileTextField.setText( "/Users/michaelsalbeck/Documents/workspace/tlog_data.txt" );
+        nameTextField.setText( "MSK" );
     }
 
     /**
@@ -39,8 +39,6 @@ public class Tlog extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -65,14 +63,14 @@ public class Tlog extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
-        breakTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         exitButton = new javax.swing.JButton();
-        datafileTextField = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -83,6 +81,7 @@ public class Tlog extends javax.swing.JFrame {
 
         jLabel1.setText("Zeit");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("1");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,8 +89,10 @@ public class Tlog extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("2");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("3");
 
         jTextField1.setText("jTextField1");
@@ -101,8 +102,10 @@ public class Tlog extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("4");
 
+        buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("5");
 
         jTextField2.setText("jTextField2");
@@ -126,14 +129,19 @@ public class Tlog extends javax.swing.JFrame {
 
         jLabel5.setText("Zeit");
 
+        buttonGroup1.add(jRadioButton6);
         jRadioButton6.setText("6");
 
+        buttonGroup1.add(jRadioButton7);
         jRadioButton7.setText("7");
 
+        buttonGroup1.add(jRadioButton8);
         jRadioButton8.setText("8");
 
+        buttonGroup1.add(jRadioButton9);
         jRadioButton9.setText("9");
 
+        buttonGroup1.add(jRadioButton10);
         jRadioButton10.setText("0");
         jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,13 +156,6 @@ public class Tlog extends javax.swing.JFrame {
         jTextField8.setText("jTextField8");
 
         jTextField9.setText("jTextField9");
-
-        breakTextField.setText("Break");
-        breakTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                breakTextFieldActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("Zeit");
 
@@ -173,12 +174,14 @@ public class Tlog extends javax.swing.JFrame {
             }
         });
 
-        datafileTextField.setText("<Data file>");
-        datafileTextField.addActionListener(new java.awt.event.ActionListener() {
+        nameTextField.setText("<Data file>");
+        nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datafileTextFieldActionPerformed(evt);
+                nameTextFieldActionPerformed(evt);
             }
         });
+
+        jLabel11.setText("Break");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,75 +191,75 @@ public class Tlog extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(nameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(exitButton)
+                        .add(29, 29, 29))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(layout.createSequentialGroup()
                                 .add(jRadioButton3)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jTextField3))
                             .add(layout.createSequentialGroup()
-                                .add(jRadioButton4)
+                                .add(jRadioButton6)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jTextField6))
+                            .add(layout.createSequentialGroup()
+                                .add(jRadioButton7)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jTextField7))
+                            .add(layout.createSequentialGroup()
+                                .add(jRadioButton8)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jTextField8))
+                            .add(layout.createSequentialGroup()
+                                .add(jRadioButton9)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jTextField9))
+                            .add(layout.createSequentialGroup()
+                                .add(jRadioButton10)
+                                .add(18, 18, 18)
+                                .add(jLabel11))
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jRadioButton2)
                                     .add(jRadioButton1))
                                 .add(12, 12, 12)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .add(jTextField2)))
                             .add(layout.createSequentialGroup()
                                 .add(jRadioButton5)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jTextField5))
                             .add(layout.createSequentialGroup()
-                                .add(jRadioButton6)
+                                .add(jRadioButton4)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(jRadioButton7)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(jRadioButton8)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(jRadioButton9)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(jRadioButton10)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(breakTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(41, 41, 41)
+                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel10)
                             .add(jLabel9)
                             .add(jLabel8)
                             .add(jLabel7)
                             .add(jLabel6)
                             .add(jLabel2)
-                            .add(jLabel3)
                             .add(jLabel4)
                             .add(jLabel5)
+                            .add(jLabel3)
+                            .add(jLabel10)
                             .add(jLabel1))
-                        .addContainerGap(56, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(datafileTextField)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(exitButton)
-                        .add(29, 29, 29))))
+                        .add(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(43, 43, 43)
+                .add(42, 42, 42)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jRadioButton10)
-                    .add(breakTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel11)
                     .add(jLabel10))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jRadioButton1)
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -304,7 +307,7 @@ public class Tlog extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(exitButton)
-                    .add(datafileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(nameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -327,50 +330,52 @@ public class Tlog extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void breakTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_breakTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_breakTextFieldActionPerformed
-
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
         System.exit( 0 );
     }//GEN-LAST:event_exitButtonActionPerformed
     
-    private void datafileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafileTextFieldActionPerformed
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_datafileTextFieldActionPerformed
+    }//GEN-LAST:event_nameTextFieldActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //MSA: Read the tlog_data.txt
-        String datafile = datafileTextField.getText();
+        //MSA: Initialize the path and name of the data file
+	String logfilePath = "/Users/michaelsalbeck/Documents/workspace/";
+	String logfilePrefix = "Tlog-";
+	String logfileName = "MSK-";
+	//MSA: get the today's date
+	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+	String sdfdate = sdf.format(new Date());
+
+	String datafile = logfilePath.concat( logfilePrefix.concat( logfileName.concat(sdfdate)) ) + ".log";
         System.out.println( datafile );
         File datafileText = new File( datafile );
         if ( datafileText.isFile() ) { System.out.println( "Hey, es ist da!" ); }
         else { System.out.println( "Oh, wo ist es denn?"); }
+
 	//MSA: Open the datafile and read the date in the first line
         try {
-            RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "rw" );
+            RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "r" );
             datafileOpen.seek(0);
             String dayInDatafile = datafileOpen.readLine();
 	    datafileOpen.close();
-	    //MSA: get the today's date
-	    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-	    String sdfdate = sdf.format(new Date());
+
 	    //MSA: Is the date from the datafile and the today's date equal?
 	    //     If not, then write the today's day in a new, first line.
 	    if ( ( dayInDatafile.trim()).equals( sdfdate ) ) {
 	    	System.out.println( "Date exists!" );
-	    } else { insertNewDatablock( datafile ); }
-        } catch ( FileNotFoundException ex ) { ex.printStackTrace();     
-        } catch ( IOException ex ) { ex.printStackTrace();
+	    } else { initializeNewDatablock( datafile ); } }
+	catch ( FileNotFoundException ex ) { ex.printStackTrace(); }
+	catch ( IOException ex ) { ex.printStackTrace();
         }
     }//GEN-LAST:event_formWindowActivated
-   public void insertNewDatablock( String datafile ) {
+   public void initializeNewDatablock( String datafile ) {
        //MSA: This method will create a new data block at the beginning
        //     of the data file
-       System.out.println( "insertNewDatablock!");
-       
-   }
+       System.out.println( "insertNewDatablock!" );
+       //System.out.println( logfileName );
+    }
     /**
      * @param args the command line arguments
      */
@@ -415,14 +420,11 @@ public class Tlog extends javax.swing.JFrame {
         // MSK: Hier beginnt mein main:
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField breakTextField;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JTextField datafileTextField;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -450,5 +452,6 @@ public class Tlog extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField nameTextField;
     // End of variables declaration//GEN-END:variables
 }
