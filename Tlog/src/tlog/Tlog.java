@@ -26,6 +26,7 @@ public class Tlog extends javax.swing.JFrame {
     String logfilePrefix = "Tlog-";
     String userName = "Tlog";
     String userNameDefault = "Tlog";
+    String datafile = logfilePath.concat( logfilePrefix ).concat( userName ) + ".log";
 
     public Tlog() {
         initComponents();
@@ -99,7 +100,6 @@ public class Tlog extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("3");
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -332,14 +332,23 @@ public class Tlog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        if ( userNameDefault == userName )
-	    System.out.println( "Bitte zuerst Namen eingeben!" );
+        //MSA: If the user has entered his/her name in userNameField then go further
+	//     else say him/her to enter the name
+	if ( userNameDefault == userName )
+	    System.out.println( "Please first enter your name!" );
 	else
 	    System.out.println( jTextField1.getText() );
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+        //MSA: If the user has entered a task number in jTextField1 the go
+	//     further else say the user to enter a task number
+	if ( jTextField1.getText().isEmpty() == true )
+	    System.out.println( "Please first enter a task number!" );
+	else
+	    //MSA: Check whether the task number is already entered in the log
+	    // ---> need further development
+	    System.out.println( "Task 1 activated!" );
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
@@ -351,7 +360,6 @@ public class Tlog extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
         System.exit( 0 );
     }//GEN-LAST:event_exitButtonActionPerformed
     
@@ -367,7 +375,6 @@ public class Tlog extends javax.swing.JFrame {
 	SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy" );
 	String sdfdate = sdf.format(new Date());
 
-	String datafile = logfilePath.concat( logfilePrefix ).concat( userName ) + ".log";
         System.out.println( datafile );
         File datafileText = new File( datafile );
         if ( datafileText.isFile() ) { System.out.println( "Hey, es ist da!" ); }
@@ -391,12 +398,33 @@ public class Tlog extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void userNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameFieldActionPerformed
-	userName = ( (userNameField.getText() ).trim() );
+	userName = ( ( userNameField.getText() ).trim() );
 	System.out.println( userName );
     }//GEN-LAST:event_userNameFieldActionPerformed
 
     //public void checkUserName(); {}
+    public void checkTaskInLog() {
+	//MSA: Is a entered tusk number already in the logfile for today?
+	//MSA: get the today's date
+	SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy" );
+	String sdfdate = sdf.format(new Date());
+	//MSA: which is the last date in th elog file?
+	String lastDate = lastDateInLog();
+	// ---> need further devellopment
+    }
 
+    public String lastDateInLog() {
+	try {
+	    RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "r" );
+            datafileOpen.seek( datafileOpen.length() );
+            // ---> search back until the last date is found
+	    datafileOpen.close(); }
+	catch ( FileNotFoundException ex ) { ex.printStackTrace(); }
+	catch ( IOException ex ) { ex.printStackTrace();
+        }
+
+	return lastDate;
+    }
     public void initializeNewDatablock( String datafile, String sdfdate ) {
 	//MSA: This method will create a new data block at the beginning
 	//     of the data file
