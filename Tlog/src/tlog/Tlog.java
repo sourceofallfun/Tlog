@@ -1,14 +1,11 @@
 package tlog;
 
-import java.io.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
-//import java.util.GregorianCalendar;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 
 /*
  * To change this template, choose Tools | Templates
@@ -24,9 +21,15 @@ public class Tlog extends javax.swing.JFrame {
     /**
      * Creates new form Tlog
      */
+
+    String logfilePath = "/Users/michaelsalbeck/Documents/workspace/";
+    String logfilePrefix = "Tlog-";
+    String userName = "Tlog";
+    String userNameDefault = "Tlog";
+
     public Tlog() {
         initComponents();
-        nameTextField.setText( "MSK" );
+	userNameField.setText( userNameDefault );
     }
 
     /**
@@ -71,6 +74,7 @@ public class Tlog extends javax.swing.JFrame {
         exitButton = new javax.swing.JButton();
         nameTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        userNameField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -183,6 +187,13 @@ public class Tlog extends javax.swing.JFrame {
 
         jLabel11.setText("Break");
 
+        userNameField.setText("<User name>");
+        userNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userNameFieldActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,11 +201,6 @@ public class Tlog extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(nameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(exitButton)
-                        .add(29, 29, 29))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(layout.createSequentialGroup()
@@ -249,12 +255,23 @@ public class Tlog extends javax.swing.JFrame {
                             .add(jLabel3)
                             .add(jLabel10)
                             .add(jLabel1))
-                        .add(14, 14, 14))))
+                        .add(14, 14, 14))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(layout.createSequentialGroup()
+                                .add(0, 0, Short.MAX_VALUE)
+                                .add(userNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(nameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(exitButton)
+                        .add(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(42, 42, 42)
+                .add(8, 8, 8)
+                .add(userNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jRadioButton10)
                     .add(jLabel11)
@@ -315,7 +332,10 @@ public class Tlog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+        if ( userNameDefault == userName )
+	    System.out.println( "Bitte zuerst Namen eingeben!" );
+	else
+	    System.out.println( jTextField1.getText() );
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -340,15 +360,14 @@ public class Tlog extends javax.swing.JFrame {
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //MSA: Initialize the path and name of the data file
-	String logfilePath = "/Users/michaelsalbeck/Documents/workspace/";
-	String logfilePrefix = "Tlog-";
-	String logfileName = "MSK-";
+        //MSA:	Initialize the path and name of the data file
+	//	How can this variables be initialiezed for the whole class?
+
 	//MSA: get the today's date
-	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+	SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy" );
 	String sdfdate = sdf.format(new Date());
 
-	String datafile = logfilePath.concat( logfilePrefix.concat( logfileName.concat(sdfdate)) ) + ".log";
+	String datafile = logfilePath.concat( logfilePrefix ).concat( userName ) + ".log";
         System.out.println( datafile );
         File datafileText = new File( datafile );
         if ( datafileText.isFile() ) { System.out.println( "Hey, es ist da!" ); }
@@ -357,7 +376,7 @@ public class Tlog extends javax.swing.JFrame {
 	//MSA: Open the datafile and read the date in the first line
         try {
             RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "r" );
-            datafileOpen.seek(0);
+            datafileOpen.seek( 0 );
             String dayInDatafile = datafileOpen.readLine();
 	    datafileOpen.close();
 
@@ -365,16 +384,33 @@ public class Tlog extends javax.swing.JFrame {
 	    //     If not, then write the today's day in a new, first line.
 	    if ( ( dayInDatafile.trim()).equals( sdfdate ) ) {
 	    	System.out.println( "Date exists!" );
-	    } else { initializeNewDatablock( datafile ); } }
+	    } else { initializeNewDatablock( datafile, sdfdate ); } }
 	catch ( FileNotFoundException ex ) { ex.printStackTrace(); }
 	catch ( IOException ex ) { ex.printStackTrace();
         }
     }//GEN-LAST:event_formWindowActivated
-   public void initializeNewDatablock( String datafile ) {
-       //MSA: This method will create a new data block at the beginning
-       //     of the data file
-       System.out.println( "insertNewDatablock!" );
-       //System.out.println( logfileName );
+
+    private void userNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameFieldActionPerformed
+	userName = ( (userNameField.getText() ).trim() );
+	System.out.println( userName );
+    }//GEN-LAST:event_userNameFieldActionPerformed
+
+    //public void checkUserName(); {}
+
+    public void initializeNewDatablock( String datafile, String sdfdate ) {
+	//MSA: This method will create a new data block at the beginning
+	//     of the data file
+	System.out.println( "insertNewDatablock!" );
+	//System.out.println(logfilePath);
+	try {
+	    RandomAccessFile datafileOpen = new RandomAccessFile( datafile, "rw" );
+	    datafileOpen.seek( 0 );
+	    datafileOpen.writeChars( sdfdate );
+	    datafileOpen.close();
+	}
+	catch ( FileNotFoundException ex ) { ex.printStackTrace(); }
+	catch ( IOException ex ) { ex.printStackTrace();
+	}
     }
     /**
      * @param args the command line arguments
@@ -453,5 +489,6 @@ public class Tlog extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
 }
